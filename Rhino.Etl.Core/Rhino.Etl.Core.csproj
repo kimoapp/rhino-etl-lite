@@ -87,6 +87,7 @@
     <Compile Include="Operations\AbstractJoinOperation.cs" />
     <Compile Include="Operations\AbstractSortedAggregationOperation.cs" />
     <Compile Include="Operations\BranchingOperation.cs" />
+    <Compile Include="Operations\BranchingOperationWithBug.cs" />
     <Compile Include="Operations\JoinType.cs" />
     <Compile Include="Operations\MultiThreadedBranchingOperation.cs" />
     <Compile Include="Operations\NestedLoopsJoinOperation.cs" />

@@ -1,8 +1,9 @@
-using System.Linq;
 using Rhino.Etl.Core.Enumerables;
+using System.Linq;
 
 namespace Rhino.Etl.Core.Operations
 {
+    using System;
     using System.Collections.Generic;
 
     /// <summary>
@@ -26,7 +27,7 @@ namespace Rhino.Etl.Core.Operations
 
                 IEnumerable<Row> enumerable = operation.Execute(cloned);
 
-                if(enumerable==null)
+                if (enumerable == null)
                     continue;
 
                 IEnumerator<Row> enumerator = enumerable.GetEnumerator();
@@ -35,6 +36,26 @@ namespace Rhino.Etl.Core.Operations
 #pragma warning restore 642
             }
             yield break;
+        }
+
+        /// <summary>
+        /// Get All Errors from child operations
+        /// </summary>
+        /// <returns></returns>
+        public override IEnumerable<Exception> GetAllErrors()
+        {
+            foreach (var operation in Operations)
+            {
+                foreach (var error in operation.GetAllErrors())
+                {
+                    yield return error;
+                }
+            }
+
+            foreach (var error in base.GetAllErrors())
+            {
+                yield return error;
+            }
         }
     }
 }
