@@ -2,6 +2,10 @@
 
 Rhino Etl is a simple [Extract, transform and load](http://en.wikipedia.org/wiki/Extract,_transform,_load) library for .NET.
 
+# Help
+
+There is a current [call for additional maintainers](https://github.com/hibernating-rhinos/rhino-etl/issues/30) due to recent changes in my job stack that has kept me away from this.
+
 # Resources
 
   * [Hibernating Rhinos](http://hibernatingrhinos.com/oss/rhino-etl)
