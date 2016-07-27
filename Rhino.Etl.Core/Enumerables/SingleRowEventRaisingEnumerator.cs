@@ -15,7 +15,6 @@ namespace Rhino.Etl.Core.Enumerables
         protected readonly IOperation operation;
         private readonly IEnumerable<Row> inner;
         private IEnumerator<Row> innerEnumerator;
-        private Row previous;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SingleRowEventRaisingEnumerator"/> class.
@@ -65,7 +64,6 @@ namespace Rhino.Etl.Core.Enumerables
             
             if (result)
             {
-                previous = innerEnumerator.Current;
                 operation.RaiseRowProcessed(Current);
             }
          
@@ -106,7 +104,7 @@ namespace Rhino.Etl.Core.Enumerables
         ///<filterpriority>1</filterpriority>
         IEnumerator<Row> IEnumerable<Row>.GetEnumerator()
         {
-            Guard.Against(inner == null, "Null enuerator detected, are you trying to read from the first operation in the process?");
+            Guard.Against(inner == null, "Null enumerator detected, are you trying to read from the first operation in the process?");
             innerEnumerator = inner.GetEnumerator();
             return this;
         }
