@@ -112,6 +112,8 @@
     <Compile Include="Branches\MultiThreadedWithSingleThreadPipelineFibonacciBranchingProcess.cs" />
     <Compile Include="Branches\SingleThreadedBranchesFixture.cs" />
     <Compile Include="Branches\SingleThreadedFibonacciBranchingProcess.cs" />
+    <Compile Include="Branches\BranchingOperationFixture.cs" />
+    <Compile Include="Branches\BranchingOperationProcess.cs" />
     <Compile Include="Dsl\AggregationFixture.cs" />
     <Compile Include="Dsl\HashJoinFixture.cs" />
     <Compile Include="Dsl\DatabaseToDatabaseWithTransformFixture.cs">
@@ -264,6 +266,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

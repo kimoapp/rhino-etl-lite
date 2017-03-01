@@ -13,7 +13,7 @@ namespace Rhino.Etl.Tests.Branches
 
         protected override AbstractBranchingOperation CreateBranchingOperation()
         {
-            return new BranchingOperation();
+            return new BranchingOperationWithBug();
         }
 
         protected override IPipelineExecuter CreatePipelineExecuter()
