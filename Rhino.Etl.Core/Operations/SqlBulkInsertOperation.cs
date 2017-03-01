@@ -4,7 +4,9 @@ using Rhino.Etl.Core.Infrastructure;
 namespace Rhino.Etl.Core.Operations
 {
     using System;
+    using System.Linq;
     using System.Collections.Generic;
+    using System.Data;
     using System.Data.SqlClient;
     using DataReaders;
 
@@ -228,7 +230,15 @@ namespace Rhino.Etl.Core.Operations
             {
                 sqlBulkCopy = CreateSqlBulkCopy(connection, transaction);
                 DictionaryEnumeratorDataReader adapter = new DictionaryEnumeratorDataReader(_inputSchema, rows);
-                sqlBulkCopy.WriteToServer(adapter);
+                try
+                {
+                    sqlBulkCopy.WriteToServer(adapter);
+                }
+                catch (InvalidOperationException)
+                {
+                    CompareSqlColumns(connection, transaction, rows);
+                    throw;
+                }
 
                 if (PipelineExecuter.HasErrors)
                 {
@@ -275,6 +285,103 @@ namespace Rhino.Etl.Core.Operations
             copy.DestinationTableName = TargetTable;
             copy.BulkCopyTimeout = Timeout;
             return copy;
+        }
+
+        private void CompareSqlColumns(SqlConnection connection, SqlTransaction transaction, IEnumerable<Row> rows)
+        {
+            var command = connection.CreateCommand();
+            command.CommandText = "select * from {TargetTable} where 1=0".Replace("{TargetTable}", TargetTable);
+            command.CommandType = CommandType.Text;
+            command.Transaction = transaction;
+
+            using (var reader = command.ExecuteReader(CommandBehavior.KeyInfo))
+            {
+                var schemaTable = reader.GetSchemaTable();
+                var databaseColumns = schemaTable.Rows
+                    .OfType<DataRow>()
+                    .Select(r => new
+                    {
+                        Name = (string)r["ColumnName"],
+                        Type = (Type)r["DataType"],
+                        IsNullable = (bool)r["AllowDBNull"],
+                        MaxLength = (int)r["ColumnSize"]
+                    })
+                    .ToArray();
+
+                var missingColumns = _schema.Keys.Except(
+                    databaseColumns.Select(c => c.Name));
+                if (missingColumns.Any())
+                    throw new InvalidOperationException(
+                        "The following columns are not in the target table: " +
+                        string.Join(", ", missingColumns.ToArray()));
+                var differentColumns = _schema
+                    .Select(s => new
+                    {
+                        Name = s.Key,
+                        SchemaType = s.Value,
+                        DatabaseType = databaseColumns.Single(c => c.Name == s.Key)
+                    })
+                    .Where(c => !TypesMatch(c.SchemaType, c.DatabaseType.Type, c.DatabaseType.IsNullable));
+                if (differentColumns.Any())
+                    throw new InvalidOperationException(
+                        "The following columns have different types in the target table: " +
+                        string.Join(", ", differentColumns
+                            //.Select(c => $"{c.Name}: is {GetFriendlyName(c.SchemaType)}, but should be {GetFriendlyName(c.DatabaseType.Type)}{(c.DatabaseType.IsNullable ? "?" : "")}.")
+                            // c.Name, GetFriendlyName(c.SchemaType), GetFriendlyName(c.DatabaseType.Type), (c.DatabaseType.IsNullable ? \"?\" : \"\")
+                            .Select(c => string.Format("{0}: is {1}, but should be {2}{3}.", c.Name,
+                                GetFriendlyName(c.SchemaType), GetFriendlyName(c.DatabaseType.Type),
+                                (c.DatabaseType.IsNullable ? "?" : "")))
+                            .ToArray()
+                            ));
+                var stringsTooLong =
+                    (from column in databaseColumns
+                     where column.Type == typeof(string)
+                     from mapping in Mappings
+                     where mapping.Value == column.Name
+                     let name = mapping.Key
+                     from row in rows
+                     let value = (string)row[name]
+                     where value != null && value.Length > column.MaxLength
+                     select new { column.Name, column.MaxLength, Value = value })
+                    .ToArray();
+                if (stringsTooLong.Any())
+                    throw new InvalidOperationException(
+                        "The folowing columns have values too long for the target table: " +
+                        string.Join(", ", stringsTooLong
+                            .Select(s => "{s.Name}: max length is {s.MaxLength}, value is {s.Value}."
+                                .Replace("{s.Name}", s.Name)
+                                .Replace("{s.MaxLength}", s.MaxLength.ToString())
+                                .Replace("{s.Value}", s.Value)
+                            )
+                            .ToArray()));
+            }
+        }
+
+        private static string GetFriendlyName(Type type)
+        {
+            var friendlyName = type.Name;
+            if (!type.IsGenericType)
+                return friendlyName;
+
+            var iBacktick = friendlyName.IndexOf('`');
+            if (iBacktick > 0)
+                friendlyName = friendlyName.Remove(iBacktick);
+
+            var genericParameters = type.GetGenericArguments()
+                .Select(x => GetFriendlyName(x))
+                .ToArray();
+            friendlyName += "<" + string.Join(", ", genericParameters) + ">";
+
+            return friendlyName;
+        }
+
+        private bool TypesMatch(Type schemaType, Type databaseType, bool isNullable)
+        {
+            if (schemaType == databaseType)
+                return true;
+            if (isNullable && schemaType == typeof(Nullable<>).MakeGenericType(databaseType))
+                return true;
+            return false;
         }
     }
 }
