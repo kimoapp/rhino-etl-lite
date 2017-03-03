@@ -56,26 +56,37 @@
   <ItemGroup>
     <Reference Include="Boo.Lang">
       <HintPath>..\SharedLibs\Boo\Boo.Lang.dll</HintPath>
+      <Private>true</Private>
     </Reference>
     <Reference Include="Boo.Lang.Compiler">
       <HintPath>..\SharedLibs\Boo\Boo.Lang.Compiler.dll</HintPath>
+      <Private>true</Private>
     </Reference>
     <Reference Include="Boo.Lang.Parser">
       <HintPath>..\SharedLibs\Boo\Boo.Lang.Parser.dll</HintPath>
+      <Private>true</Private>
     </Reference>
     <Reference Include="Common.Logging, Version=2.0.0.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\SharedLibs\Common.Logging\Common.Logging.dll</HintPath>
+      <Private>true</Private>
+    </Reference>
+    <Reference Include="Common.Logging.Core">
+      <HintPath>..\SharedLibs\Common.Logging\Common.Logging.Core.dll</HintPath>
+      <Private>true</Private>
     </Reference>
     <Reference Include="FileHelpers">
       <HintPath>..\SharedLibs\FileHelpers\FileHelpers.dll</HintPath>
+      <Private>true</Private>
     </Reference>
     <Reference Include="Rhino.DSL">
       <HintPath>..\SharedLibs\Rhino.Dsl\Rhino.DSL.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Rhino.Mocks, Version=3.6.0.0, Culture=neutral, PublicKeyToken=0b3305902db7183f, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\SharedLibs\Rhino.Mocks.dll</HintPath>
+      <Private>true</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
@@ -87,10 +98,12 @@
     <Reference Include="xunit, Version=1.1.0.1323, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\SharedLibs\xunit.dll</HintPath>
+      <Private>true</Private>
     </Reference>
     <Reference Include="xunit.extensions, Version=1.1.0.1323, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\SharedLibs\xunit.extensions.dll</HintPath>
+      <Private>true</Private>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -213,10 +226,12 @@
     <ProjectReference Include="..\Rhino.Etl.Core\Rhino.Etl.Core.csproj">
       <Project>{DC42946E-5972-411C-A061-F2932E49C31F}</Project>
       <Name>Rhino.Etl.Core</Name>
+      <Private>True</Private>
     </ProjectReference>
     <ProjectReference Include="..\Rhino.Etl.Dsl\Rhino.Etl.Dsl.csproj">
       <Project>{D087E051-C099-468D-A3E7-4567DBBDFE69}</Project>
       <Name>Rhino.Etl.Dsl</Name>
+      <Private>True</Private>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

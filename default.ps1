@@ -2,8 +2,8 @@ properties {
   $base_dir  = resolve-path .
   $lib_dir = "$base_dir\SharedLibs"
   $sln_file = "$base_dir\Rhino.Etl.sln" 
-  $version = "1.3.1.0"
-  $humanReadableversion = "1.3"
+  $version = "1.4.0.0"
+  $humanReadableversion = "1.4"
   $tools_dir = "$base_dir\Tools"
   $release_dir = "$base_dir\Release"
   $uploadCategory = "Rhino-ETL"
@@ -49,7 +49,7 @@ task Compile -depends Init {
 
 task Test -depends Compile {
   $old = pwd
-  cd $tools_dir\XUnit\
+  cd $tools_dir\xUnit\
   &.\xunit.console.exe "$base_dir\Rhino.Etl.Tests\bin\Release\Rhino.Etl.Tests.dll"
   if ($lastExitCode -ne 0) {
         throw "Error: Failed to execute tests"

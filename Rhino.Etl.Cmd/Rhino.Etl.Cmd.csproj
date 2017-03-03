@@ -95,10 +95,12 @@
     <ProjectReference Include="..\Rhino.Etl.Core\Rhino.Etl.Core.csproj">
       <Project>{DC42946E-5972-411C-A061-F2932E49C31F}</Project>
       <Name>Rhino.Etl.Core</Name>
+      <Private>True</Private>
     </ProjectReference>
     <ProjectReference Include="..\Rhino.Etl.Dsl\Rhino.Etl.Dsl.csproj">
       <Project>{D087E051-C099-468D-A3E7-4567DBBDFE69}</Project>
       <Name>Rhino.Etl.Dsl</Name>
+      <Private>True</Private>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
