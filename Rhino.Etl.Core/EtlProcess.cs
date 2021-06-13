@@ -1,6 +1,3 @@
-using System.Configuration;
-using Rhino.Etl.Core.Infrastructure;
-
 namespace Rhino.Etl.Core
 {
     using System;
@@ -123,35 +120,6 @@ namespace Rhino.Etl.Core
                 Info("Processed {0} rows in {1}", op.Statistics.OutputtedRows, op.Name);
             else
                 Debug("Processed {0} rows in {1}", op.Statistics.OutputtedRows, op.Name);
-        }
-
-        /// <summary>
-        /// Executes the command and return a scalar
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="connectionName">Name of the connection.</param>
-        /// <param name="commandText">The command text.</param>
-        /// <returns></returns>
-        protected static T ExecuteScalar<T>(string connectionName, string commandText)
-        {
-            return ExecuteScalar<T>(ConfigurationManager.ConnectionStrings[connectionName], commandText);
-        }
-
-        /// <summary>
-        /// Executes the command and return a scalar
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="connectionStringSettings">The connection string settings node to use</param>
-        /// <param name="commandText">The command text.</param>
-        /// <returns></returns>
-        protected static T ExecuteScalar<T>(ConnectionStringSettings connectionStringSettings, string commandText)
-        {
-            return Use.Transaction<T>(connectionStringSettings, delegate(IDbCommand cmd)
-            {
-                cmd.CommandText = commandText;
-                object scalar = cmd.ExecuteScalar();
-                return (T)(scalar ?? default(T));
-            });
         }
 
         /// <summary>

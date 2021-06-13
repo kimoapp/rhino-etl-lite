@@ -1,5 +1,3 @@
-using Boo.Lang;
-
 namespace Rhino.Etl.Core
 {
     using System;
@@ -12,7 +10,7 @@ namespace Rhino.Etl.Core
     /// A dictionary that can be access with a natural syntax from Boo
     /// </summary>
     [Serializable]
-    public class QuackingDictionary : IDictionary, IQuackFu
+    public class QuackingDictionary : IDictionary
     {
         /// <summary>
         /// Default value for the Comparer property.
@@ -95,7 +93,7 @@ namespace Rhino.Etl.Core
             set
             {
                 lastAccess = key;
-                if(value == DBNull.Value)
+                if (value == DBNull.Value)
                     items[key] = null;
                 else
                     items[key] = value;
@@ -110,7 +108,7 @@ namespace Rhino.Etl.Core
             if (parameters == null || parameters.Length == 0)
                 return this[name];
             if (parameters.Length == 1)
-                return this[(string)parameters[0]];
+                return this[(string) parameters[0]];
             throw new ParameterCountException("You can only call indexer with a single parameter");
         }
 
@@ -122,7 +120,7 @@ namespace Rhino.Etl.Core
             if (parameters == null || parameters.Length == 0)
                 return this[name] = value;
             if (parameters.Length == 1)
-                return this[(string)parameters[0]] = value;
+                return this[(string) parameters[0]] = value;
             throw new ParameterCountException("You can only call indexer with a single parameter");
         }
 
@@ -165,6 +163,7 @@ namespace Rhino.Etl.Core
                     {
                         pairs.Add(new KeyValuePair(item.Key, item.Value));
                     }
+
                     return pairs.ToArray();
                 }
             }
@@ -177,6 +176,7 @@ namespace Rhino.Etl.Core
             {
                 [DebuggerBrowsable(DebuggerBrowsableState.Never)]
                 private readonly object key;
+
                 [DebuggerBrowsable(DebuggerBrowsableState.Never)]
                 private readonly object value;
 
@@ -237,9 +237,10 @@ namespace Rhino.Etl.Core
                 {
                     sb.Append(item.Value);
                 }
-                sb.Append(", ");
 
+                sb.Append(", ");
             }
+
             sb.Append("}");
             return sb.ToString();
         }

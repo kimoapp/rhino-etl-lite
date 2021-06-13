@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="12.0">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -30,7 +30,7 @@
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -60,11 +60,13 @@
     <Reference Include="Boo.Lang">
       <HintPath>..\SharedLibs\Boo\Boo.Lang.dll</HintPath>
     </Reference>
-    <Reference Include="Common.Logging">
-      <HintPath>..\SharedLibs\Common.Logging\Common.Logging.dll</HintPath>
+    <Reference Include="Common.Logging, Version=3.4.1.0, Culture=neutral, PublicKeyToken=af08829b84f0328e">
+      <HintPath>..\packages\Common.Logging.3.4.1\lib\net40\Common.Logging.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="Common.Logging.Core">
-      <HintPath>..\SharedLibs\Common.Logging\Common.Logging.Core.dll</HintPath>
+    <Reference Include="Common.Logging.Core, Version=3.4.1.0, Culture=neutral, PublicKeyToken=af08829b84f0328e">
+      <HintPath>..\packages\Common.Logging.Core.3.4.1\lib\net40\Common.Logging.Core.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="FileHelpers">
       <HintPath>..\SharedLibs\FileHelpers\FileHelpers.dll</HintPath>
@@ -78,14 +80,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ConventionOperations\ConventionSqlBatchOperation.cs" />
-    <Compile Include="ConventionOperations\ConventionSqlBulkInsertOperation.cs" />
     <Compile Include="Enumerables\GatedThreadSafeEnumerator.cs" />
     <Compile Include="Enumerables\SingleRowEventRaisingEnumerator.cs" />
     <Compile Include="Enumerables\ThreadSafeEnumerator.cs" />
     <Compile Include="Guard.cs" />
-    <Compile Include="Infrastructure\SqlCommandSet.cs" />
-    <Compile Include="Infrastructure\Use.cs" />
     <Compile Include="Operations\AbstractBranchingOperation.cs" />
     <Compile Include="Operations\AbstractJoinOperation.cs" />
     <Compile Include="Operations\AbstractSortedAggregationOperation.cs" />
@@ -96,12 +94,8 @@
     <Compile Include="Operations\NestedLoopsJoinOperation.cs" />
     <Compile Include="Operations\SortMergeJoinOperation.cs" />
     <Compile Include="Pipelines\AbstractPipelineExecuter.cs" />
-    <Compile Include="ConventionOperations\ConventionInputCommandOperation.cs" />
-    <Compile Include="ConventionOperations\ConventionOutputCommandOperation.cs" />
     <Compile Include="Operations\OperationStatistics.cs" />
     <Compile Include="EtlProcessBase.cs" />
-    <Compile Include="Files\FluentFile.cs" />
-    <Compile Include="Files\FileEngine.cs" />
     <Compile Include="IPipelineExecuter.cs" />
     <Compile Include="Operations\AbstractAggregationOperation.cs" />
     <Compile Include="Operations\AbstractCommandOperation.cs" />
@@ -117,16 +111,12 @@
     <Compile Include="Operations\AbstractOperation.cs" />
     <Compile Include="Enumerables\CachingEnumerable.cs" />
     <Compile Include="Enumerables\EventRaisingEnumerator.cs" />
-    <Compile Include="Operations\InputCommandOperation.cs" />
     <Compile Include="Operations\JoinOperation.cs" />
-    <Compile Include="Operations\OutputCommandOperation.cs" />
     <Compile Include="Operations\IOperation.cs" />
     <Compile Include="Operations\PartialProcessOperation.cs" />
-    <Compile Include="Operations\SqlBatchOperation.cs" />
     <Compile Include="Pipelines\PipelineExecutionException.cs" />
     <Compile Include="Pipelines\SingleThreadedNonCachedPipelineExecuter.cs" />
     <Compile Include="Pipelines\ThreadPoolPipelineExecuter.cs" />
-    <Compile Include="Operations\SqlBulkInsertOperation.cs" />
     <Compile Include="Pipelines\SingleThreadedPipelineExecuter.cs" />
     <Compile Include="Exceptions\RhinoEtlException.cs" />
     <Compile Include="QuackingDictionary.cs" />
@@ -156,6 +146,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
