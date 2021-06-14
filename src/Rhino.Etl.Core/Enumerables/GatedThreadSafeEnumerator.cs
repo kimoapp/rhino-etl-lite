@@ -52,7 +52,6 @@ namespace Rhino.Etl.Core.Enumerables
         {
             if(Interlocked.Decrement(ref consumersLeft) == 0)
             {
-                Debug("Disposing inner enumerator");
                 innerEnumerator.Dispose();
             }
         }
@@ -69,9 +68,7 @@ namespace Rhino.Etl.Core.Enumerables
                     callsToMoveNext = 0;
                     moveNext = innerEnumerator.MoveNext();
                     current = innerEnumerator.Current;
-
-                    Debug("Pulsing all waiting threads");
-
+                    
                     Monitor.PulseAll(sync);
                 }
                 else

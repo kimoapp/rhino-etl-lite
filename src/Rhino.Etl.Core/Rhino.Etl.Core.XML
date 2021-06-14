@@ -2270,44 +2270,11 @@
             A base class that expose easily logging events
             </summary>
         </member>
-        <member name="M:Rhino.Etl.Core.WithLoggingMixin.#ctor">
-            <summary>
-            Initializes a new instance of the <see cref="T:Rhino.Etl.Core.WithLoggingMixin"/> class.
-            </summary>
-        </member>
         <member name="M:Rhino.Etl.Core.WithLoggingMixin.Error(System.Exception,System.String,System.Object[])">
             <summary>
             Logs an error message
             </summary>
             <param name="exception">The exception.</param>
-            <param name="format">The format.</param>
-            <param name="args">The args.</param>
-        </member>
-        <member name="M:Rhino.Etl.Core.WithLoggingMixin.Warn(System.String,System.Object[])">
-            <summary>
-            Logs a warn message
-            </summary>
-            <param name="format">The format.</param>
-            <param name="args">The args.</param>
-        </member>
-        <member name="M:Rhino.Etl.Core.WithLoggingMixin.Debug(System.String,System.Object[])">
-            <summary>
-            Logs a debug message
-            </summary>
-            <param name="format">The format.</param>
-            <param name="args">The args.</param>
-        </member>
-        <member name="M:Rhino.Etl.Core.WithLoggingMixin.Trace(System.String,System.Object[])">
-            <summary>
-            Logs a notice message
-            </summary>
-            <param name="format">The format.</param>
-            <param name="args">The args.</param>
-        </member>
-        <member name="M:Rhino.Etl.Core.WithLoggingMixin.Info(System.String,System.Object[])">
-            <summary>
-            Logs an information message
-            </summary>
             <param name="format">The format.</param>
             <param name="args">The args.</param>
         </member>

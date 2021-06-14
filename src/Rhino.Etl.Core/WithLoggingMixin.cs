@@ -1,5 +1,3 @@
-using Common.Logging;
-
 namespace Rhino.Etl.Core
 {
     using System;
@@ -11,16 +9,8 @@ namespace Rhino.Etl.Core
     /// </summary>
     public class WithLoggingMixin
     {
-        private readonly ILog log;
         readonly List<Exception> errors = new List<Exception>();
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="WithLoggingMixin"/> class.
-        /// </summary>
-        protected WithLoggingMixin()
-        {
-            log = LogManager.GetLogger(GetType());
-        }
+        
 
         /// <summary>
         /// Logs an error message
@@ -37,65 +27,9 @@ namespace Rhino.Etl.Core
             else
                 errorMessage = message.ToString();
             errors.Add(new RhinoEtlException(errorMessage, exception));
-            if (log.IsErrorEnabled)
-            {
-                log.Error(message, exception);
-            }
+           
         }
-
-        /// <summary>
-        /// Logs a warn message
-        /// </summary>
-        /// <param name="format">The format.</param>
-        /// <param name="args">The args.</param>
-        protected void Warn(string format, params object[] args)
-        {
-            if (log.IsWarnEnabled)
-            {
-                log.Warn(string.Format(CultureInfo.InvariantCulture, format, args), null);
-            }
-        }
-
-        /// <summary>
-        /// Logs a debug message
-        /// </summary>
-        /// <param name="format">The format.</param>
-        /// <param name="args">The args.</param>
-        protected void Debug(string format, params object[] args)
-        {
-            if (log.IsDebugEnabled)
-            {
-                log.Debug(string.Format(CultureInfo.InvariantCulture, format, args), null);
-            }
-        }
-
         
-        /// <summary>
-        /// Logs a notice message
-        /// </summary>
-        /// <param name="format">The format.</param>
-        /// <param name="args">The args.</param>
-        protected void Trace(string format, params object[] args)
-        {
-            if (log.IsTraceEnabled)
-            {
-                log.Trace(string.Format(CultureInfo.InvariantCulture, format, args), null);
-            }
-        }
-
-
-        /// <summary>
-        /// Logs an information message
-        /// </summary>
-        /// <param name="format">The format.</param>
-        /// <param name="args">The args.</param>
-        protected void Info(string format, params object[] args)
-        {
-            if (log.IsInfoEnabled)
-            {
-                log.Info(string.Format(CultureInfo.InvariantCulture, format, args), null);
-            }
-        }
 
         /// <summary>
         /// Gets all the errors
