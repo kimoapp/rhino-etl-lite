@@ -29,7 +29,7 @@ jobs:
       run: msbuild Rhino.Etl.sln /p:Configuration=Release /p:DeployOnBuild=true /p:PublishProfile=FolderProfile
  
     - name: tree
-    - run: tree
+      run: tree
     
     - name: Upload Artifact
       uses: actions/upload-artifact@v1.0.0
