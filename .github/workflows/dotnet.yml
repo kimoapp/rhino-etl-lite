@@ -18,12 +18,18 @@ jobs:
      
     - name: Add msbuild to PATH
       uses: microsoft/setup-msbuild@v1.0.2
-           
+      
+    - name: Setup nuget
+      uses: NuGet/setup-nuget@v1.0.5
+      
+    - name: Restore Packages
+      run: nuget restore Rhino.Etl.sln
+      
     - name: Build and Publish Web App
       run: msbuild Rhino.Etl.sln /p:Configuration=Release /p:DeployOnBuild=true /p:PublishProfile=FolderProfile
- 
+    
     - name: Upload Artifact
       uses: actions/upload-artifact@v1.0.0
       with:
         name: published_webapp
-        path: bin\Release\Publish
+        path: src\Rhino.etl.core\bin\Release
