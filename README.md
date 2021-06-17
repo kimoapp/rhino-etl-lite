@@ -1,6 +1,8 @@
-# RhinoETL
+# RhinoETL Lite
 
 Rhino Etl is a simple [Extract, transform and load](http://en.wikipedia.org/wiki/Extract,_transform,_load) library for .NET.
+
+Rhino ETL Lite is a version without DSL, all depedencies and no file or sql integrations on .net standard.
 
 # Help
 
@@ -11,6 +13,8 @@ There is a current [call for additional maintainers](https://github.com/hibernat
   * [Hibernating Rhinos](http://hibernatingrhinos.com/oss/rhino-etl)
 
 # Releases
+
+
 
 ## 1.4.0
 
