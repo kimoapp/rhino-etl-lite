@@ -29,7 +29,32 @@ namespace Rhino.Etl.Core
             errors.Add(new RhinoEtlException(errorMessage, exception));
            
         }
-        
+
+        /// <summary>
+        /// Logs a warn message
+        /// </summary>
+        /// <param name="format">The format.</param>
+        /// <param name="args">The args.</param>
+        protected void Warn(string format, params object[] args)
+        {
+            //if (log.IsWarnEnabled)
+            //{
+            //    log.Warn(string.Format(CultureInfo.InvariantCulture, format, args), null);
+            //}
+        }
+
+        /// <summary>
+        /// Logs a debug message
+        /// </summary>
+        /// <param name="format">The format.</param>
+        /// <param name="args">The args.</param>
+        protected void Debug(string format, params object[] args)
+        {
+            //if (log.IsDebugEnabled)
+            //{
+            //    log.Debug(string.Format(CultureInfo.InvariantCulture, format, args), null);
+            //}
+        }
 
         /// <summary>
         /// Gets all the errors
