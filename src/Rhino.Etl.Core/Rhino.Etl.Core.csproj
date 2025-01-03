@@ -6,6 +6,13 @@
     <AssemblyName>Rhino.Etl.Core</AssemblyName>
     <ProductVersion>9.0.30729</ProductVersion>
     <ProjectGuid>{DC42946E-5972-411C-A061-F2932E49C31F}</ProjectGuid>
+
+    <Description>Rhino.Etl.Core (fork)</Description>
+    <Authors>Kimo srl (forked from misha130 and hibernating-rhinos)</Authors>
+    <PackageIconUrl>http://packages.kimo.app/smartmobile.png</PackageIconUrl>
+    <IncludeContentInPack>True</IncludeContentInPack>
+    <IncludeSymbols>False</IncludeSymbols>
+    <Version>1.0.1</Version>
   </PropertyGroup>
 
   <ItemGroup>
