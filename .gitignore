@@ -18,3 +18,4 @@ Tools/xUnit/Aggregate.*
 Tools/xUnit/users.txt
 /packages/
 /.idea/
+.vs/
