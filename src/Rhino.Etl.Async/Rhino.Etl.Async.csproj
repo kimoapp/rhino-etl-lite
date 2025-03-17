@@ -4,6 +4,13 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>disable</Nullable>
+
+    <Description>Rhino.Etl.Async (fork)</Description>
+    <Authors>Kimo srl (forked from misha130 and hibernating-rhinos)</Authors>
+    <PackageIconUrl>http://packages.kimo.app/smartmobile.png</PackageIconUrl>
+    <IncludeContentInPack>True</IncludeContentInPack>
+    <IncludeSymbols>False</IncludeSymbols>
+    <Version>1.0.0</Version>
   </PropertyGroup>
 
   <ItemGroup>
